@@ -16,6 +16,6 @@
 
 void init_display(Adafruit_SSD1306& dp);
 
-void hsv_display_update(Adafruit_SSD1306& dp, CHSV& out_val);
+void hsv_display_update(Adafruit_SSD1306& dp, CHSV& out_val, uint8_t current_state);
 
 #endif
