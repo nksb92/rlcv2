@@ -19,6 +19,8 @@ void press_handler(EncoderButton& eb);
 
 void double_press_handler(EncoderButton& eb);
 
-void get_event_status(bool& state);
+bool get_event_status();
+
+void set_event_status(bool state);
 
 #endif

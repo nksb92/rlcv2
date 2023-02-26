@@ -10,7 +10,7 @@
 CHSV hsv_val(0, 255, 128);
 bool change_vals = true;
 
-EncoderButton eb1(DT_PIN, CLK_PIN, SW_PIN);
+EncoderButton enc_button(DT_PIN, CLK_PIN, SW_PIN);
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #endif

@@ -36,6 +36,10 @@ void double_press_handler(EncoderButton& eb){
 
 }
 
-void get_event_status(bool& state){
-  state = change;
+bool get_event_status(){
+  return change;
+}
+
+void set_event_status(bool state){
+  change = state;
 }
