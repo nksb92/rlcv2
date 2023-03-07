@@ -18,4 +18,6 @@ void init_display(Adafruit_SSD1306& dp);
 
 void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val, uint8_t current_state);
 
+void dmx_display_update(Adafruit_SSD1306& dp, DMX_V dmx_val);
+
 #endif
