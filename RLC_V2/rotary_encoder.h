@@ -23,4 +23,10 @@ bool get_event_status();
 
 void set_event_status(bool state);
 
+uint8_t get_main_state();
+
+uint8_t get_hsv_state();
+
+int16_t get_encoder_val();
+
 #endif
