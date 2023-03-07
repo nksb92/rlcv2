@@ -7,7 +7,7 @@
 #include "display.h" 
 #include "common.h"
 
-CHSV hsv_val(0, 255, 128);
+C_HSV hsv_val = {0, 100, 50};
 bool change_vals = true;
 
 EncoderButton enc_button(DT_PIN, CLK_PIN, SW_PIN);
