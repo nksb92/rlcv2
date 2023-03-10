@@ -50,21 +50,8 @@ struct main {
   }
 };
 
-struct DMX_V {
-  uint16_t start_address = 0;
-  const uint8_t used_addresses = 4;
-  const uint16_t last_address = 512 - used_addresses + 1;
-  void add_to_adress(int value) {
-    int temp = start_address + value;
-    if (temp > last_address) {
-      start_address = 0;
-    } else if (temp < 0) {
-      start_address = last_address;
-    } else {
-      start_address = temp;
-    }
-  }
-};
+
+
 enum {
   HUE,
   SAT,
