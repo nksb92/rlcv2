@@ -49,16 +49,18 @@ void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val, uint8_t current_sta
   dp.display();
 }
 
-void dmx_display_update(Adafruit_SSD1306& dp, DMX_V dmx_val){
+void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val){
+  uint16_t start = dmx_val.get_start();
+  uint8_t used = dmx_val.get_used_nbr();
   dp.setTextColor(WHITE);
   dp.clearDisplay();
   dp.setCursor(offset, 11);
   dp.print("DMX|");
-  dp.print(dmx_val.start_address);
+  dp.print(start);
   dp.print("-");
-  dp.print(dmx_val.start_address+dmx_val.used_addresses-1);
+  dp.print(start+used-1);
   dp.setCursor(offset, offset_y);
   dp.print("Using:");
-  dp.print(dmx_val.used_addresses);
+  dp.print(used);
   dp.display();
 }
