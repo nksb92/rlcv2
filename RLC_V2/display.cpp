@@ -14,7 +14,9 @@ void init_display(Adafruit_SSD1306& dp){
 }
 
 void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val, uint8_t current_state) {
-  
+  uint8_t hue = out_val.get_hue();
+  uint8_t sat_p = out_val.get_sat_p();
+  uint8_t val_p = out_val.get_val_p();
   uint8_t spacing = 44;
   
   dp.setTextColor(WHITE);
@@ -28,21 +30,21 @@ void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val, uint8_t current_sta
       dp.setTextColor(BLACK);
       dp.setCursor(i * spacing + offset, offset_y);
       if (i == 0) {
-        dp.print(out_val.hue);
+        dp.print(hue);
       } else if (i == 1) {
-        dp.print(out_val.sat_p);
+        dp.print(sat_p);
       } else {
-        dp.print(out_val.val_p);
+        dp.print(val_p);
       }
     } else {
       dp.setTextColor(WHITE);
       dp.setCursor(i * spacing + offset, offset_y);
       if (i == 0) {
-        dp.print(out_val.hue);
+        dp.print(hue);
       } else if (i == 1) {
-        dp.print(out_val.sat_p);
+        dp.print(sat_p);
       } else {
-        dp.print(out_val.val_p);
+        dp.print(val_p);
       }
     }
   }

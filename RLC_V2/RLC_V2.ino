@@ -4,6 +4,9 @@ int16_t encoder_val = 0;
 uint8_t main_state = 1;
 volatile uint8_t hsv_state = 0;
 unsigned long last_millis;
+C_HSV hsv_val(0, 100, 50);
+bool change_vals = true;
+
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 
 void setup() {
