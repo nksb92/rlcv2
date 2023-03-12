@@ -21,7 +21,6 @@ void setup() {
 }
 
 void loop() {
-  // dmx_val.hanlde_dmx();
   enc_button.update();
   change_vals = get_event_status();
 
@@ -29,6 +28,15 @@ void loop() {
   hsv_state = get_hsv_state();
   encoder_val = get_encoder_val();
 
+  // hanlde everthing periodically
+  switch (main_state) {
+    case DMX:
+      dmx_val.hanlde_dmx();
+      rgb_out(dmx_val.get_dmx_message());
+      break;
+  }
+
+  // handle everything on event
   if (change_vals) {
     switch (main_state) {
       case HSV:

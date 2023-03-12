@@ -60,8 +60,5 @@ void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val){
   dp.print(start);
   dp.print("-");
   dp.print(start+used-1);
-  dp.setCursor(offset, offset_y);
-  dp.print("Using:");
-  dp.print(used);
   dp.display();
 }
