@@ -1,6 +1,7 @@
 #ifndef DMX_H
 #define DMX_H
 
+// https://github.com/someweisguy/esp_dmx
 #include <esp_dmx.h>
 #include "common.h"
 
@@ -14,6 +15,7 @@ class rgb_dmx {
 
 public:
   rgb_dmx(CRGB init_rgb);
+  void install_dmx();
   void hanlde_dmx();
   void add_to_adress(int value);
   uint16_t get_start();

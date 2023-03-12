@@ -4,6 +4,9 @@ int16_t encoder_val = 0;
 uint8_t main_state = 1;
 volatile uint8_t hsv_state = 0;
 unsigned long last_millis;
+uint16_t standby_time = 30000;
+C_HSV hsv_val(0, 100, 50);
+bool change_vals = true;
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 
 void setup() {
@@ -12,6 +15,7 @@ void setup() {
   init_led();
   init_display(display);
   init_encoder(enc_button);
+  dmx_val.install_dmx();
   delay(500);
   last_millis = millis();
 }
@@ -39,6 +43,7 @@ void loop() {
             hsv_val.add_val(encoder_val);
             break;
         }
+        hsv_out(hsv_val);
         hsv_display_update(display, hsv_val, hsv_state);
         break;
       case DMX:
@@ -53,7 +58,7 @@ void loop() {
   }
 
   // no action for 30 secs will set the display in standby mode
-  if (millis() - last_millis >= 30000) {
+  if (millis() - last_millis >= standby_time) {
     set_dspl_standby(true);
     display.clearDisplay();
     display.display();

@@ -4,11 +4,13 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-struct C_HSV {
+class C_HSV {
   uint8_t hue;    // value between 0 and 255 (hue in 360/255 steps)
   uint8_t sat_p;  // value between 0 and 100 (saturation in percentage)
   uint8_t val_p;  // value between 0 and 100 (value in percentage)
-  void init(uint8_t _hue, uint8_t _sat_p, uint8_t _val_p) {
+
+public:
+  C_HSV(uint8_t _hue, uint8_t _sat_p, uint8_t _val_p) {
     hue = _hue;
     sat_p = _sat_p;
     val_p = _val_p;
@@ -26,6 +28,15 @@ struct C_HSV {
     else if (val_p + amount <= 0) val_p = 0;
     else val_p += amount;
   }
+  uint8_t get_hue() {
+    return hue;
+  }
+  uint8_t get_sat_p() {
+    return sat_p;
+  }
+  uint8_t get_val_p() {
+    return val_p;
+  }
 };
 
 enum {
@@ -34,12 +45,14 @@ enum {
   MAIN_LAST
 };
 
-struct main {
+class main {
   uint8_t current = HSV;
+
+public:
   uint8_t get_current() {
     return current;
   }
-  void set_hsv() {
+  void set_hsv(){
     current = HSV;
   }
   void next() {
@@ -50,8 +63,6 @@ struct main {
   }
 };
 
-
-
 enum {
   HUE,
   SAT,
@@ -59,8 +70,10 @@ enum {
   HSV_LAST
 };
 
-struct hsv_page {
+class hsv_page {
   uint8_t current = HUE;
+
+public:
   uint8_t get_current() {
     return current;
   }
@@ -80,7 +93,5 @@ struct hsv_page {
     }
   }
 };
-
-
 
 #endif
