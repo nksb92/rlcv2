@@ -28,17 +28,16 @@ public:
     else if (val_p + amount <= 0) val_p = 0;
     else val_p += amount;
   }
-  uint8_t get_hue(){
-    return hue; 
+  uint8_t get_hue() {
+    return hue;
   }
-  uint8_t get_sat_p(){
-    return sat_p; 
+  uint8_t get_sat_p() {
+    return sat_p;
   }
-  uint8_t get_val_p(){
-    return val_p; 
+  uint8_t get_val_p() {
+    return val_p;
   }
 };
-
 
 enum {
   HSV,
@@ -46,12 +45,14 @@ enum {
   MAIN_LAST
 };
 
-struct main {
+class main {
   uint8_t current = HSV;
+
+public:
   uint8_t get_current() {
     return current;
   }
-  void set_hsv() {
+  void set_hsv(){
     current = HSV;
   }
   void next() {
@@ -62,8 +63,6 @@ struct main {
   }
 };
 
-
-
 enum {
   HUE,
   SAT,
@@ -71,8 +70,10 @@ enum {
   HSV_LAST
 };
 
-struct hsv_page {
+class hsv_page {
   uint8_t current = HUE;
+
+public:
   uint8_t get_current() {
     return current;
   }
@@ -92,7 +93,5 @@ struct hsv_page {
     }
   }
 };
-
-
 
 #endif

@@ -9,8 +9,11 @@
 
 rgb_dmx::rgb_dmx(CRGB init_rgb) {
   dmx_set_pin(dmxPort, TRANSMIT_PIN, RECEIVE_PIN, ENABLE_PIN);
-  dmx_driver_install(dmxPort, DMX_DEFAULT_INTR_FLAGS);
   dmx_message = init_rgb;
+}
+
+void rgb_dmx::install_dmx(){
+  dmx_driver_install(dmxPort, DMX_DEFAULT_INTR_FLAGS);
 }
 
 uint16_t rgb_dmx::get_start() {
