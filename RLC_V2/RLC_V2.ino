@@ -8,7 +8,7 @@ uint16_t standby_time = 30000;
 bool change_vals = true;
 bool next_change = false;
 
-C_HSV hsv_val(0, 100, 50);
+C_HSV hsv_val(0, 100, 100);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 pdc_page pdc(0);
 
@@ -18,11 +18,13 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 void setup() {
   Serial.begin(115200);
   Serial.println("Startup");
+
   init_led();
   init_display(display);
   init_encoder(enc_button);
   dmx_val.install_dmx();
-  delay(500);
+
+  ramp_up(hsv_val);
   last_millis = millis();
 }
 
