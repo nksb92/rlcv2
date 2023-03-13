@@ -8,7 +8,8 @@ void init_led() {
   pinMode(BLUE_PIN, OUTPUT);
 }
 
-void rgb_out(CRGB led_val) {
+void rgb_out(CRGB led_val, uint8_t factor) {
+  led_val.nscale8(factor);
   analogWrite(RED_PIN, led_val.r);
   analogWrite(GREEN_PIN, led_val.g);
   analogWrite(BLUE_PIN, led_val.b);
@@ -21,5 +22,5 @@ void hsv_out(C_HSV hsv_val){
   CHSV temp_hsv(hue, sat, val);
   CRGB temp_rgb;
   hsv2rgb_rainbow(temp_hsv,temp_rgb);
-  rgb_out(temp_rgb);
+  rgb_out(temp_rgb, 255);
 }

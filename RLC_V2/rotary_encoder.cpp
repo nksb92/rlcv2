@@ -5,9 +5,9 @@
 volatile int16_t enc_val = 0;
 bool change = true;
 bool standby = false;
+bool next = false;
 
 main main_sw;
-hsv_page hsv_sw;
 
 void init_encoder(EncoderButton& eb) {
   eb.setClickHandler(press_handler);
@@ -34,17 +34,7 @@ void long_press_handler(EncoderButton& eb) {
 
 void press_handler(EncoderButton& eb) {
   if (!standby) {
-    uint8_t current_main = main_sw.get_current();
-    switch (current_main) {
-      case HSV:
-        hsv_sw.next();
-        break;
-      case DMX:
-        break;
-      default:
-        main_sw.set_hsv();
-        break;
-    }
+    next = true;
   }
   change = true;
 }
@@ -71,8 +61,12 @@ uint8_t get_main_state() {
   return main_sw.get_current();
 }
 
-uint8_t get_hsv_state() {
-  return hsv_sw.get_current();
+bool get_next_state(){
+  return next;
+}
+
+void set_next_state(bool state){
+  next = state;
 }
 
 int16_t get_encoder_val() {

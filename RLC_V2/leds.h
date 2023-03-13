@@ -9,7 +9,7 @@
 
 void init_led();
 
-void rgb_out(CRGB led_val);
+void rgb_out(CRGB led_val, uint8_t factor);
 
 void hsv_out(C_HSV hsv_val);
 

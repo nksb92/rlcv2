@@ -3,6 +3,7 @@
 
 #include <Wire.h>
 #include "dmx.h"
+#include "pdc.h"
 #include "common.h"
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -17,8 +18,10 @@
 
 void init_display(Adafruit_SSD1306& dp);
 
-void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val, uint8_t current_state);
+void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val);
 
 void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val);
+
+void pdc_display_update(Adafruit_SSD1306& dp, pdc_page pdc_val);
 
 #endif

@@ -1,7 +1,7 @@
-#include "Arduino.h"
 #ifndef ROTARY_ENCODER_H
 #define ROTARY_ENCODER_H
 // https://github.com/Stutchbury/EncoderButton Encoder Libary
+#include "Arduino.h"
 #include <EncoderButton.h>
 #include "common.h"
 
@@ -27,7 +27,9 @@ void set_dspl_standby(bool state);
 
 uint8_t get_main_state();
 
-uint8_t get_hsv_state();
+bool get_next_state();
+
+void set_next_state(bool state);
 
 int16_t get_encoder_val();
 
