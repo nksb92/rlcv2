@@ -65,10 +65,16 @@ void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val) {
 }
 
 void pdc_display_update(Adafruit_SSD1306& dp, pdc_page pdc_val) {
+  uint8_t offset_center = 27;
   dp.setTextColor(WHITE);
   dp.clearDisplay();
   dp.setCursor(offset, 11);
   dp.print("PDC|");
   dp.print(pdc_val.get_current_name());
+  dp.setCursor(offset_center, offset_y);
+  dp.print("%: ");
+  dp.fillRoundRect(offset_center + 33, offset_y - 13, 33, 16, 3, WHITE);
+  dp.setTextColor(BLACK);
+  dp.print(pdc_val.get_bright());
   dp.display();
 }

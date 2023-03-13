@@ -1,18 +1,28 @@
 #include "pdc.h"
 
 pdc_page::pdc_page(uint8_t crnt)
-  : pdc_names({
-    "WHITE",
-    "WHITE-2",
-    "CYAN",
-    "PINK",
-    "GREEN",
-    "PINK-2",
-    "ORANGE",
-    "BLUE",
-    "PURPLE",
-    "LIME",
-  }),
+  : white_color(255, 200, 190),
+    warm_white(255, 138, 18),
+    cyan(0, 255, 190),
+    pink(255, 0, 65),
+    green(0, 255, 0),
+    pink_two(255, 0, 255),
+    orange(255, 175, 0),
+    blue(0, 80, 255),
+    purple(120, 0, 255),
+    lime(136, 255, 0),
+    pdc_names({
+      "WHITE",
+      "WHITE-2",
+      "CYAN",
+      "PINK",
+      "GREEN",
+      "PINK-2",
+      "ORANGE",
+      "BLUE",
+      "PURPLE",
+      "LIME",
+    }),
     predefined_colors({
       white_color,
       warm_white,
@@ -25,16 +35,6 @@ pdc_page::pdc_page(uint8_t crnt)
       purple,
       lime,
     }) {
-  white_color.setRGB(255, 200, 190);
-  warm_white.setRGB(255, 138, 18);
-  cyan.setRGB(0, 255, 190);
-  pink.setRGB(255, 0, 65);
-  green.setRGB(0, 255, 0);
-  pink_two.setRGB(255, 0, 255);
-  orange.setRGB(255, 175, 0);
-  blue.setRGB(0, 80, 255);
-  purple.setRGB(120, 0, 255);
-  lime.setRGB(136, 255, 0);
   current = crnt;
 }
 

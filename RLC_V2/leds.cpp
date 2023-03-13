@@ -9,7 +9,7 @@ void init_led() {
 }
 
 void rgb_out(CRGB led_val, uint8_t factor) {
-  led_val.nscale8(factor);
+  led_val.nscale8_video(factor);
   analogWrite(RED_PIN, led_val.r);
   analogWrite(GREEN_PIN, led_val.g);
   analogWrite(BLUE_PIN, led_val.b);
