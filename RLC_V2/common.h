@@ -44,6 +44,10 @@ public:
   uint8_t get_val_p() {
     return val_p;
   }
+  void set_val_p(uint8_t value) {
+    val_p = 0;
+    add_val(value);
+  }
 
   uint8_t get_current() {
     return current;
