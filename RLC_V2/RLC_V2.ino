@@ -12,6 +12,8 @@ C_HSV hsv_val(0, 100, 100);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 pdc_page pdc(0);
 
+painlessMesh mesh;
+
 EncoderButton enc_button(DT_PIN, CLK_PIN, SW_PIN);
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
@@ -24,11 +26,14 @@ void setup() {
   init_encoder(enc_button);
   dmx_val.install_dmx();
 
+  init_mesh(mesh);
+
   ramp_up(hsv_val);
   last_millis = millis();
 }
 
 void loop() {
+  mesh.update();
   enc_button.update();
   change_vals = get_event_status();
   next_change = get_next_state();
@@ -40,6 +45,18 @@ void loop() {
   switch (main_state) {
     case DMX:
       dmx_val.hanlde_dmx();
+      switch (dmx_val.get_current()) {
+        case WIRE:
+          break;
+        case MASTER:
+          send_message(mesh, dmx_val);
+          break;
+        case MESH:
+          for (int i = 0; i < DMX_PACKET_SIZE; i++) {
+            dmx_val.set_data(get_data(i), i);
+          }
+          break;
+      }
       rgb_out(dmx_val.get_dmx_message(), 255);
       break;
   }
@@ -49,6 +66,9 @@ void loop() {
     switch (main_state) {
       case HSV:
         hsv_val.next();
+        break;
+      case DMX:
+        dmx_val.next();
         break;
       case PDC:
         pdc.next();
@@ -78,6 +98,14 @@ void loop() {
         hsv_display_update(display, hsv_val);
         break;
       case DMX:
+        switch (dmx_val.get_current()) {
+          case WIRE:
+            break;
+          case MASTER:
+            break;
+          case MESH:
+            break;
+        }
         dmx_val.add_to_adress(encoder_val);
         dmx_display_update(display, dmx_val);
         break;
