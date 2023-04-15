@@ -14,6 +14,7 @@ enum {
 
 // class to handle dmx messages
 class rgb_dmx {
+
   volatile uint8_t current = 0;                               // The current menu index
   volatile uint16_t start_address = 1;                        // The current start address
   const uint8_t used_addresses = 4;                           // The amount of used addresses -> Red, Green, Blue, Dimming

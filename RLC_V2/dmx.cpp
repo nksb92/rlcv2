@@ -1,6 +1,12 @@
 #include "dmx.h"
 
-#define TRANSMIT_PIN 21
+/*
+Pins for the communication with the RS-485 IC
+@param TRANSMIT_PIN: pin for sending data
+@param RECEIVE_PIN: pin for receiving data
+@param ENABLE_PIN: pin to pull RS-485 IC high or low; high for sending data, low for receiving data
+*/
+#define TRANSMIT_PIN 21 
 #define RECEIVE_PIN 20
 #define ENABLE_PIN 5
 
@@ -12,10 +18,6 @@ rgb_dmx::rgb_dmx(CRGB init_rgb)
 
 uint8_t rgb_dmx::get_current() {
   return current;
-}
-
-void rgb_dmx::set_current(uint8_t val) {
-  current = val;
 }
 
 void rgb_dmx::next() {
@@ -33,8 +35,15 @@ void rgb_dmx::install_dmx() {
   dmx_driver_install(dmxPort, DMX_DEFAULT_INTR_FLAGS);
 }
 
+/*
+Returns the current start address
+*/
 uint16_t rgb_dmx::get_start() {
   return start_address;
+}
+
+uint8_t rgb_dmx::get_used_nbr() {
+  return used_addresses;
 }
 
 uint8_t rgb_dmx::get_used_nbr() {
@@ -84,3 +93,7 @@ void rgb_dmx::set_data(uint8_t information, uint16_t index) {
 
 uint8_t rgb_dmx::get_data(uint16_t index) {
   return data[index];
+
+uint8_t rgb_dmx::get_data(uint16_t index) {
+  return data[index];
+}
