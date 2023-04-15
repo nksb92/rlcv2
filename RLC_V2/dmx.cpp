@@ -52,10 +52,6 @@ void rgb_dmx::add_to_adress(int value) {
   }
 }
 
-/*
-Sets the CRGB variable of the class to the addresses of the input data
-@param _data[]: array holding the dmx data 
-*/
 void rgb_dmx::set_rgb(uint8_t _data[]) {
   dmx_message.r = _data[start_address + 0];
   dmx_message.g = _data[start_address + 1];
@@ -64,9 +60,6 @@ void rgb_dmx::set_rgb(uint8_t _data[]) {
   dmx_message.nscale8(dim);
 }
 
-/*
-Handles the incoming dmx messages either over wire or from Wlan mesh
-*/
 void rgb_dmx::hanlde_dmx() {
   if (current == WIRE || current == MASTER) {
     dmx_packet_t packet;
@@ -91,4 +84,3 @@ void rgb_dmx::set_data(uint8_t information, uint16_t index) {
 
 uint8_t rgb_dmx::get_data(uint16_t index) {
   return data[index];
-}
