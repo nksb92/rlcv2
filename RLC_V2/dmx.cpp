@@ -35,9 +35,6 @@ void rgb_dmx::install_dmx() {
   dmx_driver_install(dmxPort, DMX_DEFAULT_INTR_FLAGS);
 }
 
-/*
-Returns the current start address
-*/
 uint16_t rgb_dmx::get_start() {
   return start_address;
 }
