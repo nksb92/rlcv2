@@ -54,6 +54,8 @@ void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val) {
 void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val) {
   uint16_t start = dmx_val.get_start();
   uint8_t used = dmx_val.get_used_nbr();
+  char* current_mode = dmx_val.get_current_txt();
+  // first row
   dp.setTextColor(WHITE);
   dp.clearDisplay();
   dp.setCursor(offset, 11);
@@ -61,6 +63,9 @@ void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val) {
   dp.print(start);
   dp.print("-");
   dp.print(start + used - 1);
+  // seccond row
+  dp.setCursor(offset, offset_y);
+  dp.print(current_mode);
   dp.display();
 }
 
