@@ -14,7 +14,6 @@ void send_message(painlessMesh& _mesh, rgb_dmx& dmx_mess) {
     out_message[i] = dmx_mess.get_data(i);
   }
   String temp = JSON.stringify(out_message);
-  // Serial.println(temp);
   _mesh.sendBroadcast(temp);
 }
 
