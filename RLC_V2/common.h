@@ -3,7 +3,9 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-
+/**
+* An enum to define the possible hsv modes.
+*/
 enum {
   HUE,
   SAT,
@@ -12,55 +14,121 @@ enum {
 };
 
 class C_HSV {
-  uint8_t hue;    // value between 0 and 255 (hue in 360/255 steps)
-  uint8_t sat_p;  // value between 0 and 100 (saturation in percentage)
-  uint8_t val_p;  // value between 0 and 100 (value in percentage)
-  uint8_t current = HUE;
+  uint8_t hue;    // The hue value between 0 and 255 (in 360/255 steps).
+  uint8_t sat_p;  // The saturation value between 0 and 100 (as a percentage).
+  uint8_t val_p;  // The value/brightness value between 0 and 100 (as a percentage).
+
+  uint8_t current = HUE;  // The current mode, initialized to HUE.
+
 public:
+  /**
+  * Constructor that takes the hue, saturation, and value as arguments.
+  * @param _hue: The hue value between 0 and 255 (in 360/255 steps).
+  * @param _sat_p: The saturation value between 0 and 100 (as a percentage).
+  * @param _val_p: The value/brightness value between 0 and 100 (as a percentage).
+  */
   C_HSV(uint8_t _hue, uint8_t _sat_p, uint8_t _val_p) {
     hue = _hue;
     sat_p = _sat_p;
     val_p = _val_p;
   }
+
+  /**
+  * Adds an amount to the current hue value.
+  * @param amount: The amount to add.
+  */
   void add_hue(int amount) {
     hue += amount;
   }
+  
+  /**
+  * Adds an amount to the current saturation value.
+  * If the result is greater than 100 or less than 0, it is clamped to the maximum or minimum value, respectively.
+  * @param amount: The amount to add.
+  */
   void add_sat(int amount) {
     if (sat_p + amount > 100) sat_p = 100;
     else if (sat_p + amount <= 0) sat_p = 0;
     else sat_p += amount;
   }
+
+  /**
+  * Adds an amount to the current value/brightness value.
+  * If the result is greater than 100 or less than 0, it is clamped to the maximum or minimum value, respectively.
+  * @param amount: The amount to add.
+  */
   void add_val(int amount) {
     if (val_p + amount > 100) val_p = 100;
     else if (val_p + amount <= 0) val_p = 0;
     else val_p += amount;
   }
+
+  /**
+  * Returns the current hue value.
+  * @return The hue value between 0 and 255 (in 360/255 steps).
+  */
   uint8_t get_hue() {
     return hue;
   }
+
+  /**
+  * Returns the current saturation value.
+  * @return The saturation value between 0 and 100 (as a percentage).
+  */
   uint8_t get_sat_p() {
     return sat_p;
   }
+
+  /**
+  * Returns the current value/brightness value.
+  * @return The value/brightness value between 0 and 100 (as a percentage).
+  */
   uint8_t get_val_p() {
     return val_p;
   }
+
+  /**
+  * Sets the value/brightness value to the given value, clamping it to the maximum or minimum value if necessary.
+  * @param value: The value to set the value/brightness to.
+  */
   void set_val_p(uint8_t value) {
     val_p = 0;
     add_val(value);
   }
 
+  /**
+  * Returns the current mode.
+  * @return The current mode.
+  */
   uint8_t get_current() {
     return current;
   }
+
+  /**
+  * Sets the current mode to HUE.
+  */
   void set_hue() {
     current = HUE;
   }
+
+  /**
+  * Sets the current mode to SAT.
+  */
   void set_sat() {
     current = SAT;
   }
+
+  /**
+  * Sets the current mode to VAL.
+  */
   void set_val() {
     current = VAL;
   }
+
+  /**
+  * Sets the current mode to the next mode in the enum.
+  * If the current mode is the last one, sets it to HUE.
+  */
   void next() {
     current++;
     if (current >= HSV_LAST) {
@@ -69,6 +137,9 @@ public:
   }
 };
 
+/**
+* An enum to define the possible main modes.
+*/
 enum {
   HSV,
   DMX,
@@ -76,16 +147,28 @@ enum {
   MAIN_LAST
 };
 
+/**
+* A class to control the current main mode.
+*/
 class main {
   uint8_t current = HSV;
 
 public:
+  /**
+  * Returns the current mode.
+  */
   uint8_t get_current() {
     return current;
   }
+  /**
+  * Sets the current mode to HSV.
+  */
   void set_hsv() {
     current = HSV;
   }
+  /**
+  * Sets the current mode to the next mode in the enum. If the current mode is the last one, sets it to HSV.
+  */
   void next() {
     current++;
     if (current >= MAIN_LAST) {
