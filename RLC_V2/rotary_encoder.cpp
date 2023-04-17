@@ -1,12 +1,18 @@
 #include "rotary_encoder.h"
 
-#define ENC_STEP 1
-
+// Current value of the encoder
 volatile int16_t enc_val = 0;
+
+// Indicates whether there has been a change in the encoder or button state
 bool change = true;
+
+// Indicates whether the display is in standby mode
 bool standby = false;
+
+// Indicates whether the button has been pressed
 bool next = false;
 
+// Declare the "main_sw" object used by the rotary encoder module.
 main main_sw;
 
 void init_encoder(EncoderButton& eb) {
