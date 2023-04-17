@@ -1,5 +1,3 @@
-#include "esp32-hal-gpio.h"
-#include "esp32-hal.h"
 #include "leds.h"
 
 void init_led() {
