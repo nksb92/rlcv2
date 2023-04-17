@@ -28,73 +28,91 @@ class rgb_dmx {
   char* modes[DMX_LAST];          // Array to store the names of the pages
 
 public:
-  /*
-  Constructor of the class rgb_dmx
-  @param init_rgb: variable to set the default value of the dmx_message
-  */
+  /**
+   * Constructor for the `rgb_dmx` class.
+   *
+   * @param init_rgb The initial RGB color to set for the LED.
+   */
   rgb_dmx(CRGB init_rgb);
-  
-  /*
-  Returns the value of the variable current
-  */
-  uint8_t get_current();
-  
-  /*
-  Adds one to current and keeps it inside the possible values 
-  */
-  void next();
-  
-  /*
-  Returns the current page name
-  */
-  char* get_current_txt();
-  
-  /*
-  Init of the dmx, needs to be called in Setup
-  */
-  void install_dmx();
-  
-  /*
-  Returns the current start address
-  */
-  uint16_t get_start();
-  
-  /*
-  Returns the amount of addresses needed for dmx
-  */
-  uint8_t get_used_nbr();
-  
-  /*
-  Adds the given value to the start_address value,
-  if value is smaller than 1 it will be set to the highest possible value,
-  if value is bigger than the highest possible value it will be set to 1
-  @param value: integer value to be added (positive or negative)
-  */
-  void add_to_adress(int value);  
-  
 
+  /**
+   * Gets the current mode index.
+   *
+   * @return The current mode index.
+   */
+  uint8_t get_current();
+
+  /**
+   * Advances to the next mode.
+   */
+  void next();
+
+  /**
+   * Gets the name of the current mode.
+   *
+   * @return The name of the current mode.
+   */
+  char* get_current_txt();
+
+  /**
+   * Installs the DMX driver.
+   */
+  void install_dmx();
+
+  /**
+   * Gets the start address of the DMX data.
+   *
+   * @return The start address of the DMX data.
+   */
+  uint16_t get_start();
+
+  /**
+   * Gets the number of DMX addresses used.
+   *
+   * @return The number of DMX addresses used.
+   */
+  uint8_t get_used_nbr();
+
+  /**
+   * Adds an offset value to the start address.
+   *
+   * @param value The offset value to add.
+   */
+  void add_to_adress(int value);
+
+  /**
+   * Sets the RGB color and dimming factor from the DMX data.
+   */
   void set_rgb();
 
-  /*
-  Handles the incoming dmx messages either over wire or from Wlan mesh  
-  */
-  void hanlde_dmx();  
+  /**
+   * Receives DMX data and sets the RGB color and dimming factor if in `WIRE` or `MAIN` mode.
+   *        Otherwise, only sets the RGB color and dimming factor from the DMX data.
+   */
+  void hanlde_dmx();
 
-  /*
-  Returns the current dmx_messeage (values of the red, green and blue channel)
-  */
+  /**
+   * Gets the current RGB color of the LED.
+   *
+   * @return The current RGB color of the LED.
+   */
   CRGB get_dmx_message();
 
-  /*
-  Sets the data array at the given index to the given information
-  @param information: value between 0 and 255 to be stored at the index
-  @param index: index where to store the information, value between 0 and 512
-  */
+  /**
+   * Sets a value in the DMX data at a given index.
+   *
+   * @param information The value to set.
+   * @param index The index at which to set the value.
+   */
   void set_data(uint8_t information, uint16_t index);
 
-  /*
-  Returns the current information stored at the given index
-  */
+  /**
+   * Gets the value at a given index in the DMX data.
+   *
+   * @param index The index to retrieve the value from.
+   *
+   * @return The value at the given index.
+   */
   uint8_t get_data(uint16_t index);
 };
 #endif
