@@ -29,90 +29,90 @@ class rgb_dmx {
 
 public:
   /**
-   * Constructor for the `rgb_dmx` class.
-   *
-   * @param init_rgb The initial RGB color to set for the LED.
-   */
+  * Constructor for the `rgb_dmx` class.
+  *
+  * @param init_rgb: The initial RGB color to set for the LED.
+  */
   rgb_dmx(CRGB init_rgb);
 
   /**
-   * Gets the current mode index.
-   *
-   * @return The current mode index.
-   */
+  * Gets the current mode index.
+  *
+  * @return The current mode index.
+  */
   uint8_t get_current();
 
   /**
-   * Advances to the next mode.
-   */
+  * Advances to the next mode.
+  */
   void next();
 
   /**
-   * Gets the name of the current mode.
-   *
-   * @return The name of the current mode.
-   */
+  * Gets the name of the current mode.
+  *
+  * @return The name of the current mode.
+  */
   char* get_current_txt();
 
   /**
-   * Installs the DMX driver.
-   */
+  * Installs the DMX driver.
+  */
   void install_dmx();
 
   /**
-   * Gets the start address of the DMX data.
-   *
-   * @return The start address of the DMX data.
-   */
+  * Gets the start address of the DMX data.
+  *
+  * @return The start address of the DMX data.
+  */
   uint16_t get_start();
 
   /**
-   * Gets the number of DMX addresses used.
-   *
-   * @return The number of DMX addresses used.
-   */
+  * Gets the number of DMX addresses used.
+  *
+  * @return The number of DMX addresses used.
+  */
   uint8_t get_used_nbr();
 
   /**
-   * Adds an offset value to the start address.
-   *
-   * @param value The offset value to add.
-   */
+  * Adds an offset value to the start address.
+  *
+  * @param value: The offset value to add.
+  */
   void add_to_adress(int value);
 
   /**
-   * Sets the RGB color and dimming factor from the DMX data.
-   */
+  * Sets the RGB color and dimming factor from the DMX data.
+  */
   void set_rgb();
 
   /**
-   * Receives DMX data and sets the RGB color and dimming factor if in `WIRE` or `MAIN` mode.
-   *        Otherwise, only sets the RGB color and dimming factor from the DMX data.
-   */
+  * Receives DMX data and sets the RGB color and dimming factor if in `WIRE` or `MAIN` mode.
+  *        Otherwise, only sets the RGB color and dimming factor from the DMX data.
+  */
   void hanlde_dmx();
 
   /**
-   * Gets the current RGB color of the LED.
-   *
-   * @return The current RGB color of the LED.
-   */
+  * Gets the current RGB color of the LED.
+  *
+  * @return The current RGB color of the LED.
+  */
   CRGB get_dmx_message();
 
   /**
-   * Sets a value in the DMX data at a given index.
-   *
-   * @param information The value to set.
-   * @param index The index at which to set the value.
-   */
+  * Sets a value in the DMX data at a given index.
+  *
+  * @param information: The value to set.
+  * @param index: The index at which to set the value.
+  */
   void set_data(uint8_t information, uint16_t index);
 
   /**
-   * Gets the value at a given index in the DMX data.
-   *
-   * @param index The index to retrieve the value from.
-   *
-   * @return The value at the given index.
-   */
+  * Gets the value at a given index in the DMX data.
+  *
+  * @param index: The index to retrieve the value from.
+  *
+  * @return The value at the given index.
+  */
   uint8_t get_data(uint16_t index);
 };
 #endif
