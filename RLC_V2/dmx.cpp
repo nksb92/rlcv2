@@ -43,10 +43,6 @@ uint8_t rgb_dmx::get_used_nbr() {
   return used_addresses;
 }
 
-uint8_t rgb_dmx::get_used_nbr() {
-  return used_addresses;
-}
-
 void rgb_dmx::add_to_adress(int value) {
   int temp = start_address + value;
   if (temp > last_address) {
@@ -58,10 +54,10 @@ void rgb_dmx::add_to_adress(int value) {
   }
 }
 
-void rgb_dmx::set_rgb(uint8_t _data[]) {
-  dmx_message.r = _data[start_address + 0];
-  dmx_message.g = _data[start_address + 1];
-  dmx_message.b = _data[start_address + 2];
+void rgb_dmx::set_rgb() {
+  dmx_message.r = data[start_address + 0];
+  dmx_message.g = data[start_address + 1];
+  dmx_message.b = data[start_address + 2];
   dim = data[start_address + 3];  // dimming factor
   dmx_message.nscale8(dim);
 }
@@ -72,11 +68,11 @@ void rgb_dmx::hanlde_dmx() {
     if (dmx_receive(dmxPort, &packet, DMX_TIMEOUT_TICK)) {
       if (!packet.err) {
         dmx_read(dmxPort, data, packet.size);
-        set_rgb(data);
+        set_rgb();
       }
     }
   } else if (current == MESH) {
-    set_rgb(data);
+    set_rgb();
   }
 }
 
@@ -87,9 +83,6 @@ CRGB rgb_dmx::get_dmx_message() {
 void rgb_dmx::set_data(uint8_t information, uint16_t index) {
   data[index] = information;
 }
-
-uint8_t rgb_dmx::get_data(uint16_t index) {
-  return data[index];
 
 uint8_t rgb_dmx::get_data(uint16_t index) {
   return data[index];
