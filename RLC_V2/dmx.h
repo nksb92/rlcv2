@@ -72,6 +72,9 @@ public:
   */
   void add_to_adress(int value);  
   
+
+  void set_rgb();
+
   /*
   Handles the incoming dmx messages either over wire or from Wlan mesh  
   */

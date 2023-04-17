@@ -1,5 +1,6 @@
 #include "wlan_mesh.h"
 
+// The data buffer for DMX packets
 uint8_t data[DMX_PACKET_SIZE];
 
 void init_mesh(painlessMesh& _mesh) {
