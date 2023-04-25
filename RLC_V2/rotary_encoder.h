@@ -11,11 +11,11 @@
 // The pin number for the switch pin of the rotary encoder
 #define SW_PIN 2
 
-// The pin number for the DT (data) pin of the rotary encoder
-#define DT_PIN 3
-
 // The pin number for the CLK (clock) pin of the rotary encoder
-#define CLK_PIN 4
+#define CLK_PIN 3
+
+// The pin number for the DT (data) pin of the rotary encoder
+#define DT_PIN 4
 
 /**
  * Initialize the rotary encoder module with the specified EncoderButton object.
