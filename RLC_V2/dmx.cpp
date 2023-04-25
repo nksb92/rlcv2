@@ -65,7 +65,7 @@ void rgb_dmx::set_rgb() {
 void rgb_dmx::hanlde_dmx() {
   if (current == WIRE || current == MASTER) {
     dmx_packet_t packet;
-    if (dmx_receive(dmxPort, &packet, DMX_TIMEOUT_TICK)) {
+    if (dmx_receive(dmxPort, &packet, 5)) {
       if (!packet.err) {
         dmx_read(dmxPort, data, packet.size);
         set_rgb();
