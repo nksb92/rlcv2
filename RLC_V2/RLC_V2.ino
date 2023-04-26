@@ -21,6 +21,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Startup");
 
+  init_eeprom();
   init_led();
   init_display(display);
   init_encoder(enc_button);

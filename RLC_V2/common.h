@@ -40,7 +40,7 @@ public:
   void add_hue(int amount) {
     hue += amount;
   }
-  
+
   /**
   * Adds an amount to the current saturation value.
   * If the result is greater than 100 or less than 0, it is clamped to the maximum or minimum value, respectively.
@@ -97,11 +97,41 @@ public:
   }
 
   /**
+  * Sets the value/brightness value to the given value, clamping it to the maximum or minimum value if necessary.
+  * @param value: The value to set the value/brightness to.
+  */
+  void set_sat_p(uint8_t value) {
+    sat_p = 0;
+    add_sat(value);
+  }
+
+  /**
+  * Sets the hue to the given value in 360/255 steps.
+  * @param value: The hue value to set.
+  */
+  void set_hue_byte(uint8_t value) {
+    hue = value;
+  }
+
+  /**
   * Returns the current mode.
   * @return The current mode.
   */
   uint8_t get_current() {
     return current;
+  }
+
+  /**
+  * Sets the current mode to the given mode. If the given mode is greater than or equal to the total number of modes,
+  * sets the mode to the last available mode.
+  * @param _current: The mode to set the current mode to.
+  */
+  void set_current(uint8_t _current) {
+    if (_current >= HSV_LAST) {
+      current = HSV_LAST - 1;
+    } else {
+      current = _current;
+    }
   }
 
   /**
@@ -160,12 +190,27 @@ public:
   uint8_t get_current() {
     return current;
   }
+
+  /**
+  * Sets the current mode to the given mode. If the given mode is greater than or equal to the total number of modes,
+  * sets the mode to the last available mode.
+  * @param _current: The mode to set the current mode to.
+  */
+  void set_current(uint8_t _current) {
+    if (_current >= MAIN_LAST) {
+      current = MAIN_LAST - 1;
+    } else {
+      current = _current;
+    }
+  }
+
   /**
   * Sets the current mode to HSV.
   */
   void set_hsv() {
     current = HSV;
   }
+
   /**
   * Sets the current mode to the next mode in the enum. If the current mode is the last one, sets it to HSV.
   */
