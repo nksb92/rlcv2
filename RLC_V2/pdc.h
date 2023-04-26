@@ -89,7 +89,7 @@ public:
   * Sets the brightness percentage value to the given value, clamping it to the maximum or minimum value if necessary.
   * @param value: The value to set the brightness percentage to.
   */
-  void pdc_page::set_bright(int value);
+  void set_bright(int value);
 
   /**
   * Get the brightness percentage
