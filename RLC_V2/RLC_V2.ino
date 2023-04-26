@@ -6,12 +6,14 @@ unsigned long last_millis;
 uint16_t standby_time = 30000;
 
 bool change_vals = true;
-bool next_change = false;
+bool button_pressed = false;
+bool button_long_pressed = false;
+bool button_double_pressed = false;
 
 C_HSV hsv_val(0, 100, 100);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 pdc_page pdc(0);
-
+main main_sw;
 painlessMesh mesh;
 
 EncoderButton enc_button(DT_PIN, CLK_PIN, SW_PIN);
@@ -37,9 +39,11 @@ void loop() {
   mesh.update();
   enc_button.update();
   change_vals = get_event_status();
-  next_change = get_next_state();
+  button_pressed = get_press_state();
+  button_long_pressed = get_long_press();
+  button_double_pressed = get_double_press();
 
-  main_state = get_main_state();
+  main_state = main_sw.get_current();
   encoder_val = get_encoder_val();
 
   // hanlde everthing periodically
@@ -63,7 +67,7 @@ void loop() {
   }
 
   // cycle through display options
-  if (next_change) {
+  if (button_pressed) {
     switch (main_state) {
       case HSV:
         hsv_val.next();
@@ -77,7 +81,16 @@ void loop() {
       default:
         break;
     }
-    set_next_state(false);
+    set_press_state(false);
+  }
+
+  if (button_long_pressed){
+    main_sw.next();
+    set_long_press(false);
+  }
+
+  if (button_double_pressed){
+    set_double_press(false);
   }
 
   // handle everything on event
