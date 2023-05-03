@@ -38,7 +38,6 @@ void loop() {
   change_vals = get_event_status();
   next_change = get_next_state();
 
-  main_state = get_main_state();
   encoder_val = get_encoder_val();
 
   // hanlde everthing periodically
@@ -78,6 +77,8 @@ void loop() {
     }
     set_next_state(false);
   }
+
+  main_state = main_sw.get_current();
 
   // handle everything on event
   if (change_vals) {
