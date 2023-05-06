@@ -43,7 +43,6 @@ void loop() {
   button_long_pressed = get_long_press();
   button_double_pressed = get_double_press();
 
-  main_state = main_sw.get_current();
   encoder_val = get_encoder_val();
 
   // hanlde everthing periodically
@@ -92,6 +91,8 @@ void loop() {
   if (button_double_pressed){
     set_double_press(false);
   }
+
+  main_state = main_sw.get_current();
 
   // handle everything on event
   if (change_vals) {
