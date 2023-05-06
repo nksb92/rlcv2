@@ -5,10 +5,10 @@
 
 class pdc_page {
   // current: the index of the current color being used
-  uint8_t current = 0;
+  uint8_t current = STD_CURRENT;
 
   // brightness_p: the brightness percentage of the LEDs
-  uint8_t brightness_p = 75;
+  uint8_t brightness_p = STD_BRIGHTNESS_PDC;
 
   // pdc_nmbr: the number of predefined colors
   static const uint8_t pdc_nmbr = 10;
@@ -61,6 +61,12 @@ public:
   * @param crnt: Current color index
   */
   void set_current(uint8_t crnt);
+
+  /**
+  * Gets the current color index
+  * @return uint8_t value of the current index
+  */
+  uint8_t get_current();
 
   /**
   * Move to the next color index

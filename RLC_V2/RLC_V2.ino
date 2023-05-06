@@ -10,9 +10,9 @@ bool button_pressed = false;
 bool button_long_pressed = false;
 bool button_double_pressed = false;
 
-C_HSV hsv_val(0, 100, 100);
+C_HSV hsv_val(STD_HUE, STD_SAT_P, STD_VAL_P);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
-pdc_page pdc(0);
+pdc_page pdc(STD_CURRENT);
 main main_sw;
 painlessMesh mesh;
 
@@ -30,8 +30,11 @@ void setup() {
   dmx_val.install_dmx();
 
   init_mesh(mesh);
+  
+  read_eeprom(hsv_val, dmx_val, pdc, main_sw);
 
   ramp_up(hsv_val);
+  Serial.println("Startup complete.");
   last_millis = millis();
 }
 
@@ -89,6 +92,7 @@ void loop() {
   }
 
   if (button_double_pressed){
+    write_eeprom(hsv_val, dmx_val, pdc, main_sw);
     set_double_press(false);
   }
 
