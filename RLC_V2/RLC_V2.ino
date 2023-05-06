@@ -3,16 +3,19 @@
 int16_t encoder_val = 0;
 uint8_t main_state = 1;
 unsigned long last_millis;
+unsigned long saved_timer_start;
 uint16_t standby_time = 30000;
+uint16_t display_saved_time = 2000;
 
+bool display_saved = false;
 bool change_vals = true;
 bool button_pressed = false;
 bool button_long_pressed = false;
 bool button_double_pressed = false;
 
-C_HSV hsv_val(0, 100, 100);
+C_HSV hsv_val(STD_HUE, STD_SAT_P, STD_VAL_P);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
-pdc_page pdc(0);
+pdc_page pdc(STD_CURRENT);
 main main_sw;
 painlessMesh mesh;
 
@@ -31,8 +34,12 @@ void setup() {
 
   init_mesh(mesh);
 
+  read_eeprom(hsv_val, dmx_val, pdc, main_sw);
+
   ramp_up(hsv_val);
+  Serial.println("Startup complete.");
   last_millis = millis();
+  saved_timer_start = millis();
 }
 
 void loop() {
@@ -83,13 +90,28 @@ void loop() {
     set_press_state(false);
   }
 
-  if (button_long_pressed){
+  // cycle through the main menu
+  if (button_long_pressed) {
     main_sw.next();
     set_long_press(false);
   }
 
-  if (button_double_pressed){
+  // save variables to EEPROM and display for two secconds 
+  // that the values has been saved
+  if (button_double_pressed) {
+    write_eeprom(hsv_val, dmx_val, pdc, main_sw);
     set_double_press(false);
+    display_saved = true;
+    display_saved_status(display);
+    saved_timer_start = millis();
+  }
+
+  // display for two secconds that the data has been written to the eeprom
+  if (millis() - saved_timer_start >= display_saved_time) {
+    if (display_saved) {
+      change_vals = true;
+      display_saved = false;
+    }
   }
 
   main_state = main_sw.get_current();

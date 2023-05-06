@@ -84,3 +84,11 @@ void pdc_display_update(Adafruit_SSD1306& dp, pdc_page pdc_val) {
   dp.print(pdc_val.get_bright());
   dp.display();
 }
+
+void display_saved_status(Adafruit_SSD1306& dp){
+  dp.setTextColor(WHITE);
+  dp.clearDisplay();
+  dp.setCursor(offset + 10, offset_y - 10);
+  dp.print("|>SAVED<|");
+  dp.display();
+}

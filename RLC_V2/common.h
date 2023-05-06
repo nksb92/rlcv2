@@ -3,6 +3,14 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
+
+#define STD_HUE 0
+#define STD_SAT_P 100
+#define STD_VAL_P 100
+#define STD_CURRENT 0
+#define STD_START_ADDRESS 1
+#define STD_BRIGHTNESS_PDC 75
+
 /**
 * An enum to define the possible hsv modes.
 */

@@ -42,6 +42,10 @@ void pdc_page::set_current(uint8_t crnt) {
   current = crnt;
 }
 
+uint8_t pdc_page::get_current(){
+  return current;
+}
+
 void pdc_page::next() {
   current++;
   if (current >= pdc_nmbr) {
