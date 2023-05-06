@@ -1,7 +1,6 @@
 #ifndef ROTARY_ENCODER_H
 #define ROTARY_ENCODER_H
 // https://github.com/Stutchbury/EncoderButton Encoder Libary
-#include "Arduino.h"
 #include <EncoderButton.h>
 #include "common.h"
 
@@ -25,83 +24,101 @@
 void init_encoder(EncoderButton& eb);
 
 /**
- * Handle the rotary encoder events. If the rotary encoder is not in standby mode,
- * increment the encoder value by the current encoder value.
+ * Handle the encoder event.
  *
- * @param eb: The EncoderButton object associated with the rotary encoder.
+ * @param eb: The EncoderButton object that generated the event.
  */
 void encoder_handler(EncoderButton& eb);
 
 /**
- * Handle the long press button event. If the rotary encoder is not in standby mode,
- * call the "next" function of the "main_sw" object.
+ * Get the current encoder value and reset it.
  *
- * @param eb: The EncoderButton object associated with the rotary encoder.
+ * @return The current encoder value.
+ */
+int16_t get_encoder_val();
+
+/**
+ * Handle the long press event.
+ *
+ * @param eb: The EncoderButton object that generated the event.
  */
 void long_press_handler(EncoderButton& eb);
 
 /**
- * Handle the button press event. If the rotary encoder is not in standby mode,
- * set the "next" flag to true.
+ * Get the state of the long press flag.
  *
- * @param eb: The EncoderButton object associated with the rotary encoder.
+ * @return The state of the long press flag.
+ */
+bool get_long_press();
+
+/**
+ * Set the state of the long press flag.
+ *
+ * @param state: The state to set the long press flag to.
+ */
+void set_long_press(bool state);
+
+/**
+ * Handle the press event.
+ *
+ * @param eb: The EncoderButton object that generated the event.
  */
 void press_handler(EncoderButton& eb);
 
 /**
- * Handle the double press button event. Currently does nothing.
+ * Get the state of the press flag.
  *
- * @param eb: The EncoderButton object associated with the rotary encoder.
+ * @return The state of the press flag.
+ */
+bool get_press_state();
+
+/**
+ * Set the state of the press flag.
+ *
+ * @param state: The state to set the press flag to.
+ */
+void set_press_state(bool state);
+
+/**
+ * Handle the double press event.
+ *
+ * @param eb: The EncoderButton object that generated the event.
  */
 void double_press_handler(EncoderButton& eb);
 
 /**
- * Returns the current status of the "change" flag.
+ * Get the state of the double press flag.
  *
- * @return: The current value of the "change" flag.
+ * @return The state of the double press flag.
+ */
+bool get_double_press();
+
+/**
+ * Set the state of the double press flag.
+ *
+ * @param state: The state to set the double press flag to.
+ */
+void set_double_press(bool state);
+
+/**
+ * Get the state of the event status flag and reset it.
+ *
+ * @return The state of the event status flag.
  */
 bool get_event_status();
 
 /**
- * Sets the value of the "change" flag.
+ * Set the state of the event status flag.
  *
- * @param state: The value to set the "change" flag to.
+ * @param state: The state to set the event status flag to.
  */
 void set_event_status(bool state);
 
 /**
- * Sets the standby state of the rotary encoder module.
+ * Set the standby state of the display.
  *
- * @param state: The value to set the standby state to.
+ * @param state: The state to set the standby flag to.
  */
 void set_dspl_standby(bool state);
 
-/**
- * Returns the current state of the "main_sw" object.
- *
- * @return: The current state of the "main_sw" object.
- */
-uint8_t get_main_state();
-
-/**
- * Returns the current value of the "next" flag.
- *
- * @return: The current value of the "next" flag.
- */
-bool get_next_state();
-
-/**
- * Sets the value of the "next" flag.
- *
- * @param state: The value to set the "next" flag to.
- */
-void set_next_state(bool state);
-
-/**
- * Returns the current value of the rotary encoder and resets the encoder value to zero.
- *
- * @return: The current value of the rotary encoder.
- */
-int16_t get_encoder_val();
-
-#endif
+#endif 

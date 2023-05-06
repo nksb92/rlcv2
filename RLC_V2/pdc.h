@@ -86,6 +86,12 @@ public:
   void add_bright(int val);
 
   /**
+  * Sets the brightness percentage value to the given value, clamping it to the maximum or minimum value if necessary.
+  * @param value: The value to set the brightness percentage to.
+  */
+  void set_bright(int value);
+
+  /**
   * Get the brightness percentage
   * @return Brightness percentage value
   */

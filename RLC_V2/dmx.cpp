@@ -6,7 +6,7 @@ Pins for the communication with the RS-485 IC
 @param RECEIVE_PIN: pin for receiving data
 @param ENABLE_PIN: pin to pull RS-485 IC high or low; high for sending data, low for receiving data
 */
-#define TRANSMIT_PIN 21 
+#define TRANSMIT_PIN 21
 #define RECEIVE_PIN 20
 #define ENABLE_PIN 5
 
@@ -18,6 +18,14 @@ rgb_dmx::rgb_dmx(CRGB init_rgb)
 
 uint8_t rgb_dmx::get_current() {
   return current;
+}
+
+void rgb_dmx::set_current(uint8_t _current) {
+  if (_current >= DMX_LAST) {
+    current = DMX_LAST - 1;
+  } else {
+    current = _current;
+  }
 }
 
 void rgb_dmx::next() {
@@ -52,6 +60,11 @@ void rgb_dmx::add_to_adress(int value) {
   } else {
     start_address = temp;
   }
+}
+
+void rgb_dmx::set_start_address(int start) {
+  start_address = 1;
+  add_to_adress(start - 1);
 }
 
 void rgb_dmx::set_rgb() {

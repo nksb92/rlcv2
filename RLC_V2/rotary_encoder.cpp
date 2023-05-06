@@ -10,10 +10,11 @@ bool change = true;
 bool standby = false;
 
 // Indicates whether the button has been pressed
-bool next = false;
+bool press = false;
 
-// Declare the "main_sw" object used by the rotary encoder module.
-main main_sw;
+bool long_press = false;
+
+bool double_press = false;
 
 void init_encoder(EncoderButton& eb) {
   eb.setClickHandler(press_handler);
@@ -31,24 +32,55 @@ void encoder_handler(EncoderButton& eb) {
   change = true;
 }
 
+int16_t get_encoder_val() {
+  int16_t temp = enc_val;
+  enc_val = 0;
+  return temp;
+}
+
 void long_press_handler(EncoderButton& eb) {
   if (!standby) {
-    main_sw.next();
+    long_press = true;
   }
   change = true;
+}
+
+bool get_long_press(){
+  return long_press;
+}
+
+void set_long_press(bool state){
+  long_press = state;
 }
 
 void press_handler(EncoderButton& eb) {
   if (!standby) {
-    next = true;
+    press = true;
   }
   change = true;
 }
 
+bool get_press_state(){
+  return press;
+}
+
+void set_press_state(bool state){
+  press = state;
+}
+
 void double_press_handler(EncoderButton& eb) {
   if (!standby) {
+    double_press = true;
   }
   change = true;
+}
+
+bool get_double_press(){
+  return double_press;
+}
+
+void set_double_press(bool state){
+  double_press = state;
 }
 
 bool get_event_status() {
@@ -61,22 +93,4 @@ void set_event_status(bool state) {
 
 void set_dspl_standby(bool state) {
   standby = state;
-}
-
-uint8_t get_main_state() {
-  return main_sw.get_current();
-}
-
-bool get_next_state(){
-  return next;
-}
-
-void set_next_state(bool state){
-  next = state;
-}
-
-int16_t get_encoder_val() {
-  int16_t temp = enc_val;
-  enc_val = 0;
-  return temp;
 }

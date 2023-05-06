@@ -43,6 +43,13 @@ public:
   uint8_t get_current();
 
   /**
+  * Sets the current mode to the given mode. If the given mode is greater than or equal to the total number of modes,
+  * sets the mode to the last available mode.
+  * @param _current: The mode to set the current mode to.
+  */
+  void set_current(uint8_t _current);
+
+  /**
   * Advances to the next mode.
   */
   void next();
@@ -79,6 +86,12 @@ public:
   * @param value: The offset value to add.
   */
   void add_to_adress(int value);
+
+  /**
+  * Sets the start address for the DMX addresses.
+  * @param start: The start address to set for DMX.
+  */
+  void set_start_address(int start);
 
   /**
   * Sets the RGB color and dimming factor from the DMX data.

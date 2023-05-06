@@ -67,6 +67,11 @@ void pdc_page::add_bright(int val) {
   }
 }
 
+void pdc_page::set_bright(int value){
+  brightness_p = 0;
+  add_bright(value);
+}
+
 uint8_t pdc_page::get_bright() {
   return brightness_p;
 }
