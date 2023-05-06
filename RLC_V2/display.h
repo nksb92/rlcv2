@@ -47,4 +47,11 @@ void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val);
  */
 void pdc_display_update(Adafruit_SSD1306& dp, pdc_page pdc_val);
 
+/**
+ * Displays that the EEPROM data has been saved.
+ *
+ * @param dp: the reference to the Adafruit_SSD1306 object representing the OLED display
+ */
+void display_saved_status(Adafruit_SSD1306& dp);
+
 #endif

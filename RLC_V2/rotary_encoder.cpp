@@ -72,7 +72,6 @@ void double_press_handler(EncoderButton& eb) {
   if (!standby) {
     double_press = true;
   }
-  change = true;
 }
 
 bool get_double_press(){
