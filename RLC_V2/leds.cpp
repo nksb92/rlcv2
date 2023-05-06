@@ -6,15 +6,34 @@ void init_led() {
   pinMode(BLUE_PIN, OUTPUT);
 }
 
-void ramp_up(C_HSV led_val) {
-  uint8_t temp_v = led_val.get_val_p();
+void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw) {
   uint16_t start_up_time = 1000;
-  uint16_t t_delay = start_up_time / temp_v;
+  uint16_t t_delay = 0;
+  uint8_t temp_brightness = 0;
+  uint8_t temp_v = 0;
   
-  for (int i = 0; i <= temp_v; i++) {
-    led_val.set_val_p(i);
-    hsv_out(led_val);
-    delay(t_delay);
+  switch (main_sw.get_current()) {
+    case HSV:
+      temp_v = led_val.get_val_p();
+      t_delay = start_up_time / temp_v;
+      for (int i = 0; i <= temp_v; i++) {
+        led_val.set_val_p(i);
+        hsv_out(led_val);
+        delay(t_delay);
+      }
+      break;
+    case PDC:
+      temp_brightness = pdc.get_bright();
+      t_delay = start_up_time / temp_brightness;
+      for (int i = 0; i <= temp_brightness; i++) {
+        pdc.set_bright(i);
+        rgb_out(pdc.get_current_color(), pdc.get_bright());
+        delay(t_delay);
+      }
+      break;
+    default:
+      delay(start_up_time);
+      break;
   }
 }
 

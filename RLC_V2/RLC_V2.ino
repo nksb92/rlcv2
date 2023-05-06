@@ -36,7 +36,7 @@ void setup() {
 
   read_eeprom(hsv_val, dmx_val, pdc, main_sw);
 
-  ramp_up(hsv_val);
+  ramp_up(hsv_val, pdc, main_sw);
   Serial.println("Startup complete.");
   last_millis = millis();
   saved_timer_start = millis();
