@@ -11,10 +11,10 @@
 #include <Fonts/FreeMonoBold12pt7b.h>
 
 #define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 32 
+#define SCREEN_HEIGHT 32
 
-#define OLED_RESET     -1 
-#define SCREEN_ADDRESS 0x3C 
+#define OLED_RESET -1
+#define SCREEN_ADDRESS 0x3C
 
 /**
  * Initializes the OLED display with the specified parameters.
@@ -53,5 +53,12 @@ void pdc_display_update(Adafruit_SSD1306& dp, pdc_page pdc_val);
  * @param dp: the reference to the Adafruit_SSD1306 object representing the OLED display
  */
 void display_saved_status(Adafruit_SSD1306& dp);
+
+/**
+ * Displays the startup message.
+ *
+ * @param dp: the reference to the Adafruit_SSD1306 object representing the OLED display
+ */
+void display_startup(Adafruit_SSD1306& dp);
 
 #endif
