@@ -1,9 +1,12 @@
 #include "leds.h"
 
 void init_led() {
-  pinMode(RED_PIN, OUTPUT);
-  pinMode(GREEN_PIN, OUTPUT);
-  pinMode(BLUE_PIN, OUTPUT);
+  ledcSetup(RED_CHANNEL, PWM_FREQ, RESOLUTION);
+  ledcSetup(GREEN_CHANNEL, PWM_FREQ, RESOLUTION);
+  ledcSetup(BLUE_CHANNEL, PWM_FREQ, RESOLUTION);
+  ledcAttachPin(RED_PIN, RED_CHANNEL);
+  ledcAttachPin(GREEN_PIN, GREEN_CHANNEL);
+  ledcAttachPin(BLUE_PIN, BLUE_CHANNEL);
 }
 
 void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw) {
@@ -39,9 +42,9 @@ void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw) {
 
 void rgb_out(CRGB led_val, uint8_t factor) {
   led_val.nscale8_video(factor);
-  analogWrite(RED_PIN, led_val.r);
-  analogWrite(GREEN_PIN, led_val.g);
-  analogWrite(BLUE_PIN, led_val.b);
+  ledcWrite(RED_CHANNEL, led_val.r);
+  ledcWrite(GREEN_CHANNEL, led_val.g);
+  ledcWrite(BLUE_CHANNEL, led_val.b);
 }
 
 void hsv_out(C_HSV hsv_val) {

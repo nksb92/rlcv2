@@ -7,6 +7,11 @@
 #define RED_PIN 10
 #define GREEN_PIN 9
 #define BLUE_PIN 8
+#define RED_CHANNEL 0
+#define GREEN_CHANNEL 1
+#define BLUE_CHANNEL 2
+#define PWM_FREQ 2000
+#define RESOLUTION 8
 
 /**
  * Initializes the LED pins as outputs.
@@ -14,7 +19,7 @@
 void init_led();
 
 /**
- * Ramps up the brightness of an HSV LED from 0 to its value parameter.
+ * Ramps up the brightness from 0 to the last value.
  *
  * @param led_val: An HSV value representing the target brightness.
  * @param pdc: The variable of the pdc page to get current color and brightness.
