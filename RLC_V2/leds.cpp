@@ -10,7 +10,7 @@ void init_led() {
 }
 
 void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw) {
-  uint16_t start_up_time = 1000;
+  uint16_t start_up_time = 1500;
   uint16_t t_delay = 0;
   uint8_t temp_brightness = 0;
   uint8_t temp_v = 0;

@@ -36,8 +36,10 @@ void setup() {
 
   read_eeprom(hsv_val, dmx_val, pdc, main_sw);
 
+  display_startup(display);
   ramp_up(hsv_val, pdc, main_sw);
   Serial.println("Startup complete.");
+
   last_millis = millis();
   saved_timer_start = millis();
 }
@@ -96,7 +98,7 @@ void loop() {
     set_long_press(false);
   }
 
-  // save variables to EEPROM and display for two secconds 
+  // save variables to EEPROM and display for two secconds
   // that the values has been saved
   if (button_double_pressed) {
     write_eeprom(hsv_val, dmx_val, pdc, main_sw);
