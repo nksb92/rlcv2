@@ -32,6 +32,14 @@ void init_display(Adafruit_SSD1306& dp);
 void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val);
 
 /**
+ * Updates the OLED display with the current RGB values.
+ *
+ * @param dp: the reference to the Adafruit_SSD1306 object representing the OLED display
+ * @param rgb_val: the C_RGB object containing the current RGB values
+ */
+void rgb_display_update(Adafruit_SSD1306& dp, C_RGB rgb_val);
+
+/**
  * Updates the OLED display with the current DMX values.
  *
  * @param dp: the reference to the Adafruit_SSD1306 object representing the OLED display

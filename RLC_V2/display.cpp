@@ -52,6 +52,45 @@ void hsv_display_update(Adafruit_SSD1306& dp, C_HSV out_val) {
   dp.display();
 }
 
+void rgb_display_update(Adafruit_SSD1306& dp, C_RGB rgb_val) {
+  uint8_t red = rgb_val.get_red();
+  uint8_t green = rgb_val.get_green();
+  uint8_t blue = rgb_val.get_blue();
+  uint8_t current_state = rgb_val.get_current();
+  uint8_t spacing = 44;
+
+  dp.setTextColor(WHITE);
+  dp.clearDisplay();
+  dp.setCursor(offset, 10);
+  dp.print(" R | G | B ");
+
+  for (int i = 0; i < 3; i++) {
+    if (i == current_state) {
+      dp.fillRoundRect(i * spacing + offset, offset_y - 13, 33, 16, 3, WHITE);
+      dp.setTextColor(BLACK);
+      dp.setCursor(i * spacing + offset, offset_y);
+      if (i == 0) {
+        dp.print(red);
+      } else if (i == 1) {
+        dp.print(green);
+      } else {
+        dp.print(blue);
+      }
+    } else {
+      dp.setTextColor(WHITE);
+      dp.setCursor(i * spacing + offset, offset_y);
+      if (i == 0) {
+        dp.print(red);
+      } else if (i == 1) {
+        dp.print(green);
+      } else {
+        dp.print(blue);
+      }
+    }
+  }
+  dp.display();
+}
+
 void dmx_display_update(Adafruit_SSD1306& dp, rgb_dmx dmx_val) {
   uint16_t start = dmx_val.get_start();
   uint8_t used = dmx_val.get_used_nbr();
