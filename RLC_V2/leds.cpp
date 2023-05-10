@@ -9,22 +9,32 @@ void init_led() {
   ledcAttachPin(BLUE_PIN, BLUE_CHANNEL);
 }
 
-void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw) {
+void ramp_up(C_HSV hsv_val, C_RGB rgb_val, pdc_page& pdc, main& main_sw) {
   uint16_t start_up_time = 1500;
   uint16_t t_delay = 0;
   uint8_t temp_brightness = 0;
-  uint8_t temp_v = 0;
-  
+  uint16_t temp_v = 0;
+
   switch (main_sw.get_current()) {
     case HSV_PAGE:
-      temp_v = led_val.get_val_p();
+      temp_v = hsv_val.get_val_p();
       t_delay = start_up_time / temp_v;
       for (int i = 0; i <= temp_v; i++) {
-        led_val.set_val_p(i);
-        hsv_out(led_val);
+        hsv_val.set_val_p(i);
+        hsv_out(hsv_val);
         delay(t_delay);
       }
       break;
+
+    case RGB_PAGE:
+      temp_v = 255;
+      t_delay = start_up_time / temp_v;
+      for (int i = 0; i <= temp_v; i++) {
+        rgb_out(rgb_val.get_rgb(), i);
+        delay(t_delay);
+      }
+      break;
+
     case PDC_PAGE:
       temp_brightness = pdc.get_bright();
       t_delay = start_up_time / temp_brightness;

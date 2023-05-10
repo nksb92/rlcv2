@@ -38,7 +38,7 @@ void setup() {
   read_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
 
   display_startup(display);
-  ramp_up(hsv_val, pdc, main_sw);
+  ramp_up(hsv_val, rgb_val, pdc, main_sw);
   Serial.println("Startup complete.");
 
   last_millis = millis();
