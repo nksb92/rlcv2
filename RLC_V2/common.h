@@ -182,9 +182,10 @@ public:
 * An enum to define the possible main modes.
 */
 enum {
-  HSV,
-  DMX,
-  PDC,
+  HSV_PAGE,
+  RGB_PAGE,
+  DMX_PAGE,
+  PDC_PAGE,
   MAIN_LAST
 };
 
@@ -192,7 +193,7 @@ enum {
 * A class to control the current main mode.
 */
 class main {
-  uint8_t current = HSV;
+  uint8_t current = HSV_PAGE;
 
 public:
   /**
@@ -219,7 +220,7 @@ public:
   * Sets the current mode to HSV.
   */
   void set_hsv() {
-    current = HSV;
+    current = HSV_PAGE;
   }
 
   /**
