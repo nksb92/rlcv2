@@ -14,6 +14,7 @@ bool button_long_pressed = false;
 bool button_double_pressed = false;
 
 C_HSV hsv_val(STD_HUE, STD_SAT_P, STD_VAL_P);
+C_RGB rgb_val(STD_RED, STD_GREEN, STD_BLUE);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 pdc_page pdc(STD_CURRENT);
 main main_sw;
@@ -34,10 +35,10 @@ void setup() {
 
   init_mesh(mesh);
 
-  read_eeprom(hsv_val, dmx_val, pdc, main_sw);
+  read_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
 
   display_startup(display);
-  ramp_up(hsv_val, pdc, main_sw);
+  ramp_up(hsv_val, rgb_val, pdc, main_sw);
   Serial.println("Startup complete.");
 
   last_millis = millis();
@@ -56,7 +57,7 @@ void loop() {
 
   // hanlde everthing periodically
   switch (main_state) {
-    case DMX:
+    case DMX_PAGE:
       dmx_val.hanlde_dmx();
       switch (dmx_val.get_current()) {
         case WIRE:
@@ -77,13 +78,16 @@ void loop() {
   // cycle through display options
   if (button_pressed) {
     switch (main_state) {
-      case HSV:
+      case HSV_PAGE:
         hsv_val.next();
         break;
-      case DMX:
+      case RGB_PAGE:
+        rgb_val.next();
+        break;
+      case DMX_PAGE:
         dmx_val.next();
         break;
-      case PDC:
+      case PDC_PAGE:
         pdc.next();
         break;
       default:
@@ -101,7 +105,7 @@ void loop() {
   // save variables to EEPROM and display for two secconds
   // that the values has been saved
   if (button_double_pressed) {
-    write_eeprom(hsv_val, dmx_val, pdc, main_sw);
+    write_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
     set_double_press(false);
     display_saved = true;
     display_saved_status(display);
@@ -121,7 +125,7 @@ void loop() {
   // handle everything on event
   if (change_vals) {
     switch (main_state) {
-      case HSV:
+      case HSV_PAGE:
         switch (hsv_val.get_current()) {
           case HUE:
             hsv_val.add_hue(encoder_val);
@@ -136,7 +140,22 @@ void loop() {
         hsv_out(hsv_val);
         hsv_display_update(display, hsv_val);
         break;
-      case DMX:
+      case RGB_PAGE:
+        switch (rgb_val.get_current()) {
+          case RED:
+            rgb_val.add_red(encoder_val);
+            break;
+          case GREEN:
+            rgb_val.add_green(encoder_val);
+            break;
+          case BLUE:
+            rgb_val.add_blue(encoder_val);
+            break;
+        }
+        rgb_out(rgb_val.get_rgb(), 255);
+        rgb_display_update(display, rgb_val);
+        break;
+      case DMX_PAGE:
         switch (dmx_val.get_current()) {
           case WIRE:
             break;
@@ -148,7 +167,7 @@ void loop() {
         dmx_val.add_to_adress(encoder_val);
         dmx_display_update(display, dmx_val);
         break;
-      case PDC:
+      case PDC_PAGE:
         pdc.add_bright(encoder_val);
         rgb_out(pdc.get_current_color(), pdc.get_bright());
         pdc_display_update(display, pdc);

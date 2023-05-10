@@ -21,11 +21,12 @@ void init_led();
 /**
  * Ramps up the brightness from 0 to the last value.
  *
- * @param led_val: An HSV value representing the target brightness.
+ * @param hsv_val: An HSV value representing the target brightness.
+ * @param rgb_val: An RGB value representing the target brightness.
  * @param pdc: The variable of the pdc page to get current color and brightness.
  * @param main_sw: The main menu switching object.
  */
-void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw);
+void ramp_up(C_HSV hsv_val, C_RGB rgb_val, pdc_page& pdc, main& main_sw);
 
 /**
  * Sets the output of an RGB LED with the given value and scaling factor.

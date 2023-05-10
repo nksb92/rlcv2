@@ -10,8 +10,8 @@
 
 void init_eeprom();
 
-void read_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw);
+void read_eeprom(C_HSV& hsv_val, C_RGB& rgb_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw);
 
-void write_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw);
+void write_eeprom(C_HSV& hsv_val, C_RGB& rgb_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw);
 
 #endif
