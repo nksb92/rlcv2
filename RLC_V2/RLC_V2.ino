@@ -14,6 +14,7 @@ bool button_long_pressed = false;
 bool button_double_pressed = false;
 
 C_HSV hsv_val(STD_HUE, STD_SAT_P, STD_VAL_P);
+C_RGB rgb_val(STD_RED, STD_GREEN, STD_BLUE);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 pdc_page pdc(STD_CURRENT);
 main main_sw;
