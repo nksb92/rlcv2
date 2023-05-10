@@ -35,7 +35,7 @@ void setup() {
 
   init_mesh(mesh);
 
-  read_eeprom(hsv_val, dmx_val, pdc, main_sw);
+  read_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
 
   display_startup(display);
   ramp_up(hsv_val, pdc, main_sw);
@@ -105,7 +105,7 @@ void loop() {
   // save variables to EEPROM and display for two secconds
   // that the values has been saved
   if (button_double_pressed) {
-    write_eeprom(hsv_val, dmx_val, pdc, main_sw);
+    write_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
     set_double_press(false);
     display_saved = true;
     display_saved_status(display);
@@ -153,6 +153,7 @@ void loop() {
             break;
         }
         rgb_out(rgb_val.get_rgb(), 255);
+        rgb_display_update(display, rgb_val);
         break;
       case DMX_PAGE:
         switch (dmx_val.get_current()) {

@@ -4,7 +4,7 @@ void init_eeprom() {
   EEPROM.begin(EEPROM_ADDRESSES);
 }
 
-void read_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw) {
+void read_eeprom(C_HSV& hsv_val, C_RGB& rgb_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw) {
   uint16_t eeprom_address = 0;
 
   // get all variables from the hsv page
@@ -25,6 +25,25 @@ void read_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw)
   hsv_val.set_val_p(val_p);
 
   eeprom_address += sizeof(sat_p);
+
+  // get all variables from the rgb page
+  uint8_t red = STD_RED;
+  EEPROM.get(eeprom_address, red);
+  rgb_val.set_red(red);
+
+  eeprom_address += sizeof(red);
+
+  uint8_t green = STD_GREEN;
+  EEPROM.get(eeprom_address, green);
+  rgb_val.set_green(green);
+
+  eeprom_address += sizeof(green);
+
+  uint8_t blue = STD_BLUE;
+  EEPROM.get(eeprom_address, blue);
+  rgb_val.set_blue(blue);
+
+  eeprom_address += sizeof(blue);
 
   // get all variables from the dmx page
   uint8_t current_dmx = STD_CURRENT;
@@ -58,10 +77,10 @@ void read_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw)
   main_sw.set_current(current_main);
 }
 
-void write_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw) {
+void write_eeprom(C_HSV& hsv_val, C_RGB& rgb_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw) {
   uint16_t eeprom_address = 0;
 
-  // get all variables from the hsv page
+  // set all variables from the hsv page
   uint8_t hue = hsv_val.get_hue();
   EEPROM.put(eeprom_address, hue);
 
@@ -77,7 +96,23 @@ void write_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw
 
   eeprom_address += sizeof(sat_p);
 
-  // get all variables from the dmx page
+  // set all variables from the rgb page
+  uint8_t red = rgb_val.get_red();
+  EEPROM.put(eeprom_address, red);
+
+  eeprom_address += sizeof(red);
+
+  uint8_t green = rgb_val.get_green();
+  EEPROM.put(eeprom_address, green);
+
+  eeprom_address += sizeof(green);
+
+  uint8_t blue = rgb_val.get_blue();
+  EEPROM.put(eeprom_address, blue);
+
+  eeprom_address += sizeof(blue);
+
+  // set all variables from the dmx page
   uint8_t current_dmx = dmx_val.get_current();
   EEPROM.put(eeprom_address, current_dmx);
 
@@ -88,7 +123,7 @@ void write_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw
 
   eeprom_address += sizeof(start_address);
 
-  // get all variables from the pre defined color page
+  // set all variables from the pre defined color page
   uint8_t current_pdc = pdc.get_current();
   EEPROM.put(eeprom_address, current_pdc);
 
@@ -99,7 +134,7 @@ void write_eeprom(C_HSV& hsv_val, rgb_dmx& dmx_val, pdc_page& pdc, main& main_sw
 
   eeprom_address += sizeof(brightness_p);
 
-  // get the current main state
+  // set the current main state
   uint8_t current_main = main_sw.get_current();
   EEPROM.put(eeprom_address, current_main);
   EEPROM.commit();
