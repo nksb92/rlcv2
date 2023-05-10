@@ -7,6 +7,9 @@
 #define STD_HUE 0
 #define STD_SAT_P 100
 #define STD_VAL_P 100
+#define STD_RED 128
+#define STD_GREEN 0
+#define STD_BLUE 128
 #define STD_CURRENT 0
 #define STD_START_ADDRESS 1
 #define STD_BRIGHTNESS_PDC 75
@@ -179,9 +182,10 @@ public:
 * An enum to define the possible main modes.
 */
 enum {
-  HSV,
-  DMX,
-  PDC,
+  HSV_PAGE,
+  RGB_PAGE,
+  DMX_PAGE,
+  PDC_PAGE,
   MAIN_LAST
 };
 
@@ -189,7 +193,7 @@ enum {
 * A class to control the current main mode.
 */
 class main {
-  uint8_t current = HSV;
+  uint8_t current = HSV_PAGE;
 
 public:
   /**
@@ -216,7 +220,7 @@ public:
   * Sets the current mode to HSV.
   */
   void set_hsv() {
-    current = HSV;
+    current = HSV_PAGE;
   }
 
   /**
@@ -227,6 +231,84 @@ public:
     if (current >= MAIN_LAST) {
       set_hsv();
     }
+  }
+};
+
+enum {
+  RED,
+  GREEN,
+  BLUE,
+  RGB_LAST
+};
+
+class C_RGB {
+  CRGB rgb_color;
+  uint8_t current = RED;
+
+public:
+  C_RGB(uint8_t red, uint8_t green, uint8_t blue) {
+    rgb_color.r = red;
+    rgb_color.g = green;
+    rgb_color.b = blue;
+  }
+
+  void set_current(uint8_t value) {
+    current = value;
+  }
+
+  void next() {
+    current++;
+    if (current >= RGB_LAST) {
+      current = RED;
+    }
+  }
+
+  uint8_t get_current() {
+    return current;
+  }
+
+  void set_red(uint8_t value) {
+    rgb_color.r = value;
+  }
+
+  void add_red(int value) {
+    rgb_color.r += value;
+  }
+
+  uint8_t get_red() {
+    return rgb_color.r;
+  }
+
+  void set_green(uint8_t value) {
+    rgb_color.g = value;
+  }
+
+  void add_green(int value) {
+    rgb_color.g += value;
+  }
+
+  uint8_t get_green() {
+    return rgb_color.g;
+  }
+
+  void set_blue(uint8_t value) {
+    rgb_color.b = value;
+  }
+
+  void add_blue(int value) {
+    rgb_color.b += value;
+  }
+
+  uint8_t get_blue() {
+    return rgb_color.b;
+  }
+
+  void set_rgb(CRGB rgb_value) {
+    rgb_color = rgb_value;
+  }
+
+  CRGB get_rgb() {
+    return rgb_color;
   }
 };
 #endif

@@ -16,7 +16,7 @@ void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw) {
   uint8_t temp_v = 0;
   
   switch (main_sw.get_current()) {
-    case HSV:
+    case HSV_PAGE:
       temp_v = led_val.get_val_p();
       t_delay = start_up_time / temp_v;
       for (int i = 0; i <= temp_v; i++) {
@@ -25,7 +25,7 @@ void ramp_up(C_HSV led_val, pdc_page& pdc, main& main_sw) {
         delay(t_delay);
       }
       break;
-    case PDC:
+    case PDC_PAGE:
       temp_brightness = pdc.get_bright();
       t_delay = start_up_time / temp_brightness;
       for (int i = 0; i <= temp_brightness; i++) {
