@@ -9,6 +9,7 @@
 - [Systemoverview](#systemoverview)
   - [Hardware](#hardware)
     - [Systemoverview](#systemoverview-1)
+    - [Circuit Diagramm](#circuit-diagramm)
     - [Selected Parts / BOM](#selected-parts--bom)
   - [Software](#software)
     - [Concept](#concept)
@@ -32,18 +33,14 @@ The hardware of the RLCV2 is split in different functional parts as shown in the
 </figure>
 The outer doted line is the system boundry. Arrows pointed out or in are interactions to the outside of the system. 
 
+### Circuit Diagramm
+<figure class="image">
+  <img src="PDFs/Circuit%20Diagramm.pdf">
+  <figcaption>Software concept of the different pages and modes</figcaption>
+</figure>
+
 ### Selected Parts / BOM
 Below is the part list for building a RGB LED Tube with the controller inside. To assemble only a controller not all parts are needed. Total cost around 52,23 € (2023.05.16) for one lamp. I planned and bought these components to manifacture 10 lamps. Some Parts may therefore be cheaper per part.
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-3qbk{border-color:inherit;color:#3166ff;text-align:left;vertical-align:top}
-.tg .tg-h6w4{border-color:inherit;font-size:15px;font-weight:bold;text-align:left;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-</style>
 <table class="tg">
 <thead>
   <tr>
