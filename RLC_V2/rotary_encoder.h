@@ -8,6 +8,7 @@
 // data, and clock pins of the rotary encoder.
 
 // The pin number for the switch pin of the rotary encoder
+// the EncoderButton libary sets this pin to pull-up
 #define SW_PIN 2
 
 // The pin number for the CLK (clock) pin of the rotary encoder
