@@ -6,7 +6,6 @@
 #include "leds.h"
 #include "rotary_encoder.h"
 #include "display.h" 
-#include "wlan_mesh.h"
 #include "nvm.h"
 #include "common.h"
 
