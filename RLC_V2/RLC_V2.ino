@@ -4,8 +4,10 @@ int16_t encoder_val = 0;
 uint8_t main_state = 1;
 unsigned long last_millis;
 unsigned long saved_timer_start;
+unsigned long last_send;
 uint16_t standby_time = 30000;
 uint16_t display_saved_time = 2000;
+uint8_t pause_time = 10;
 
 bool display_saved = false;
 bool change_vals = true;
@@ -18,7 +20,6 @@ C_RGB rgb_val(STD_RED, STD_GREEN, STD_BLUE);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 pdc_page pdc(STD_CURRENT);
 main main_sw;
-painlessMesh mesh;
 
 EncoderButton enc_button(DT_PIN, CLK_PIN, SW_PIN);
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -33,8 +34,6 @@ void setup() {
   init_encoder(enc_button);
   dmx_val.install_dmx();
 
-  init_mesh(mesh);
-
   read_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
 
   display_startup(display);
@@ -46,7 +45,6 @@ void setup() {
 }
 
 void loop() {
-  mesh.update();
   enc_button.update();
   change_vals = get_event_status();
   button_pressed = get_press_state();
@@ -62,13 +60,14 @@ void loop() {
       switch (dmx_val.get_current()) {
         case WIRE:
           break;
-        case MASTER:
-          send_message(mesh, dmx_val);
-          break;
-        case MESH:
-          for (int i = 0; i < DMX_PACKET_SIZE; i++) {
-            dmx_val.set_data(get_data(i), i);
+        case SENDER:
+          if (millis() - pause_time >= last_send) {
+            send(dmx_val);
+            last_send = millis();
           }
+          break;
+        case RECEIVER:
+          get_received_data(dmx_val);
           break;
       }
       rgb_out(dmx_val.get_dmx_message(), 255);
@@ -86,6 +85,19 @@ void loop() {
         break;
       case DMX_PAGE:
         dmx_val.next();
+        switch (dmx_val.get_current()) {
+          case WIRE:
+            receiver_deinit();
+            break;
+          case SENDER:
+            sender_init();
+            last_send = millis();
+            break;
+          case RECEIVER:
+            sender_deinit();
+            receiver_init();
+            break;
+        }
         break;
       case PDC_PAGE:
         pdc.next();
@@ -156,14 +168,6 @@ void loop() {
         rgb_display_update(display, rgb_val);
         break;
       case DMX_PAGE:
-        switch (dmx_val.get_current()) {
-          case WIRE:
-            break;
-          case MASTER:
-            break;
-          case MESH:
-            break;
-        }
         dmx_val.add_to_adress(encoder_val);
         dmx_display_update(display, dmx_val);
         break;

@@ -9,7 +9,7 @@ void init_display(Adafruit_SSD1306& dp) {
   dp.setTextSize(1);
   dp.setTextColor(WHITE);
   dp.setFont(&FreeMonoBold9pt7b);
-  dp.setRotation(2);
+  // dp.setRotation(2);
   dp.display();
 }
 
