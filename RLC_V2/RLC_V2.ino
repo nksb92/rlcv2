@@ -4,8 +4,10 @@ int16_t encoder_val = 0;
 uint8_t main_state = 1;
 unsigned long last_millis;
 unsigned long saved_timer_start;
+unsigned long last_send;
 uint16_t standby_time = 30000;
 uint16_t display_saved_time = 2000;
+uint8_t pause_time = 10;
 
 bool display_saved = false;
 bool change_vals = true;
@@ -59,6 +61,10 @@ void loop() {
         case WIRE:
           break;
         case SENDER:
+          if (millis() - pause_time >= last_send) {
+            send(dmx_val);
+            last_send = millis();
+          }
           break;
         case RECEIVER:
           break;
@@ -78,6 +84,17 @@ void loop() {
         break;
       case DMX_PAGE:
         dmx_val.next();
+        switch (dmx_val.get_current()) {
+          case WIRE:
+            break;
+          case SENDER:
+            sender_init();
+            last_send = millis();
+            break;
+          case RECEIVER:
+            sender_deinit();
+            break;
+        }
         break;
       case PDC_PAGE:
         pdc.next();
@@ -148,14 +165,6 @@ void loop() {
         rgb_display_update(display, rgb_val);
         break;
       case DMX_PAGE:
-        switch (dmx_val.get_current()) {
-          case WIRE:
-            break;
-          case SENDER:
-            break;
-          case RECEIVER:
-            break;
-        }
         dmx_val.add_to_adress(encoder_val);
         dmx_display_update(display, dmx_val);
         break;
