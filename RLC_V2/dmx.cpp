@@ -11,7 +11,7 @@ Pins for the communication with the RS-485 IC
 #define ENABLE_PIN 5
 
 rgb_dmx::rgb_dmx(CRGB init_rgb)
-  : modes({ "Wire", "Main", "Mesh" }) {
+  : modes({ "Wire", "Sender", "Receiver" }) {
   dmx_set_pin(dmxPort, TRANSMIT_PIN, RECEIVE_PIN, ENABLE_PIN);
   dmx_message = init_rgb;
 }
@@ -76,7 +76,7 @@ void rgb_dmx::set_rgb() {
 }
 
 void rgb_dmx::hanlde_dmx() {
-  if (current == WIRE || current == MASTER) {
+  if (current == WIRE || current == SENDER) {
     dmx_packet_t packet;
     if (dmx_receive(dmxPort, &packet, 5)) {
       if (!packet.err) {
@@ -84,7 +84,7 @@ void rgb_dmx::hanlde_dmx() {
         set_rgb();
       }
     }
-  } else if (current == MESH) {
+  } else if (current == RECEIVER) {
     set_rgb();
   }
 }

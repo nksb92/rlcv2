@@ -7,8 +7,8 @@
 
 enum {
   WIRE,
-  MASTER,
-  MESH,
+  SENDER,
+  RECEIVER,
   DMX_LAST
 };
 
