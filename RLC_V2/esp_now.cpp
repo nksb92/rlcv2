@@ -1,4 +1,5 @@
 #include "esp_now.h"
+#define BYTES_TRANSMIT_NMBR 41
 
 uint8_t broadcast_addresses[10][6] = {
   { 0x34, 0x85, 0x18, 0x26, 0xE2, 0xB8 },
@@ -12,7 +13,8 @@ uint8_t broadcast_addresses[10][6] = {
   { 0x34, 0x85, 0x18, 0x26, 0x2D, 0x98 },
   { 0x34, 0x85, 0x18, 0x26, 0xEA, 0x3C }
 };
-uint8_t sending_data[41]; // byte 0 is not used for DMX therefore we need a length of 41 for the first 40 Bytes
+uint8_t sending_data[BYTES_TRANSMIT_NMBR];  // byte 0 is not used for DMX therefore we need a length of 41 for the first 40 Bytes
+uint8_t receiving_data[BYTES_TRANSMIT_NMBR];
 esp_now_peer_info_t peer_info;
 
 #define NUMBER_BYTES_SENDING (sizeof(sending_data) / sizeof(sending_data[0]))
@@ -28,7 +30,7 @@ void sender_init() {
     peer_info.channel = 0;
     peer_info.encrypt = false;
 
-    for (uint8_t *address : broadcast_addresses) {
+    for (uint8_t* address : broadcast_addresses) {
       memcpy(peer_info.peer_addr, address, 6);
 
       // print the current mac address
@@ -46,7 +48,7 @@ void sender_init() {
 void sender_deinit() {
   if (esp_now_deinit() != ESP_OK) {
     Serial.println("ERROR: deinitializing ESP-NOW SENDER.");
-  }else{
+  } else {
     Serial.println("INFO: deinitialized ESP-NOW SENDER.");
   }
 }
@@ -60,7 +62,38 @@ void send(rgb_dmx& dmx_mess) {
   //   Serial.print(", ");
   // }
   // Serial.println("");
-  
+
   // with peer Addr 0: send to all -> broadcast
   esp_now_send(0, (uint8_t*)&sending_data, sizeof(sending_data));
+}
+
+void receiver_init() {
+  WiFi.mode(WIFI_STA);
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("ERROR: initializing ESP-NOW as RECEIVER.");
+  } else {
+    Serial.println("INFO: initialized ESP-NOW as RECEIVER.");
+    esp_now_register_recv_cb(receive);
+    for (uint8_t i = 0; i < NUMBER_BYTES_SENDING; i++) {
+      receiving_data[i] = 0;
+    }
+  }
+}
+
+void receiver_deinit() {
+  if (esp_now_deinit() != ESP_OK) {
+    Serial.println("ERROR: deinitializing ESP-NOW RECEIVER.");
+  } else {
+    Serial.println("INFO: deinitialized ESP-NOW RECEIVER.");
+  }
+}
+
+void receive(const uint8_t* mac, const uint8_t* incoming_data, int len) {
+  memcpy(&receiving_data, incoming_data, sizeof(receiving_data));
+}
+
+void get_received_data(rgb_dmx& dmx_mess) {
+  for (uint8_t i = 0; i < NUMBER_BYTES_SENDING; i++) {
+    dmx_mess.set_data(receiving_data[i], i);
+  }
 }
