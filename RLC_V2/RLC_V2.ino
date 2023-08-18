@@ -58,9 +58,9 @@ void loop() {
       switch (dmx_val.get_current()) {
         case WIRE:
           break;
-        case MASTER:
+        case SENDER:
           break;
-        case MESH:
+        case RECEIVER:
           break;
       }
       rgb_out(dmx_val.get_dmx_message(), 255);
@@ -151,9 +151,9 @@ void loop() {
         switch (dmx_val.get_current()) {
           case WIRE:
             break;
-          case MASTER:
+          case SENDER:
             break;
-          case MESH:
+          case RECEIVER:
             break;
         }
         dmx_val.add_to_adress(encoder_val);
