@@ -67,6 +67,7 @@ void loop() {
           }
           break;
         case RECEIVER:
+          get_received_data(dmx_val);
           break;
       }
       rgb_out(dmx_val.get_dmx_message(), 255);
@@ -86,6 +87,7 @@ void loop() {
         dmx_val.next();
         switch (dmx_val.get_current()) {
           case WIRE:
+            receiver_deinit();
             break;
           case SENDER:
             sender_init();
@@ -93,6 +95,7 @@ void loop() {
             break;
           case RECEIVER:
             sender_deinit();
+            receiver_init();
             break;
         }
         break;
