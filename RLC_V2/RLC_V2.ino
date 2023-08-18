@@ -18,7 +18,6 @@ C_RGB rgb_val(STD_RED, STD_GREEN, STD_BLUE);
 rgb_dmx dmx_val(CRGB(0, 0, 0));
 pdc_page pdc(STD_CURRENT);
 main main_sw;
-painlessMesh mesh;
 
 EncoderButton enc_button(DT_PIN, CLK_PIN, SW_PIN);
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -33,8 +32,6 @@ void setup() {
   init_encoder(enc_button);
   dmx_val.install_dmx();
 
-  init_mesh(mesh);
-
   read_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
 
   display_startup(display);
@@ -46,7 +43,6 @@ void setup() {
 }
 
 void loop() {
-  mesh.update();
   enc_button.update();
   change_vals = get_event_status();
   button_pressed = get_press_state();
@@ -63,12 +59,8 @@ void loop() {
         case WIRE:
           break;
         case MASTER:
-          send_message(mesh, dmx_val);
           break;
         case MESH:
-          for (int i = 0; i < DMX_PACKET_SIZE; i++) {
-            dmx_val.set_data(get_data(i), i);
-          }
           break;
       }
       rgb_out(dmx_val.get_dmx_message(), 255);
