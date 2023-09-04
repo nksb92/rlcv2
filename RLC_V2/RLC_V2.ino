@@ -37,9 +37,22 @@ void setup() {
   read_eeprom(hsv_val, rgb_val, dmx_val, pdc, main_sw);
 
   display_startup(display);
-  ramp_up(hsv_val, rgb_val, pdc, main_sw);
-  Serial.println("Startup complete.");
 
+  if (main_sw.get_current() == DMX_PAGE) {
+    switch (dmx_val.get_current()) {
+      case SENDER:
+        sender_init();
+        break;
+      case RECEIVER:
+        receiver_init();
+        break;
+    }
+    delay(500);
+  } else {
+    ramp_up(hsv_val, rgb_val, pdc, main_sw);
+  }
+
+  Serial.println("Startup complete.");
   last_millis = millis();
   saved_timer_start = millis();
 }
