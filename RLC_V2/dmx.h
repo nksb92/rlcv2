@@ -24,6 +24,7 @@ class rgb_dmx {
   uint8_t dim = 0;   // Dimming factor given with the fouth address
 
   dmx_port_t dmxPort = 0;         // Dmx port for the esp_dmx libarary
+  dmx_config_t config = DMX_CONFIG_DEFAULT;
   uint8_t data[DMX_PACKET_SIZE];  // Array to receive the dmx data in
   char* modes[DMX_LAST];          // Array to store the names of the pages
 

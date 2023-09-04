@@ -40,7 +40,7 @@ char* rgb_dmx::get_current_txt() {
 }
 
 void rgb_dmx::install_dmx() {
-  dmx_driver_install(dmxPort, DMX_DEFAULT_INTR_FLAGS);
+  dmx_driver_install(dmxPort, &config, DMX_INTR_FLAGS_DEFAULT);
 }
 
 uint16_t rgb_dmx::get_start() {
