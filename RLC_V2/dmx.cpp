@@ -12,7 +12,7 @@ Pins for the communication with the RS-485 IC
 
 rgb_dmx::rgb_dmx(CRGB init_rgb)
   : modes({ "Wire", "Sender", "Receiver" }) {
-  dmx_set_pin(dmxPort, TRANSMIT_PIN, RECEIVE_PIN, ENABLE_PIN);
+  
   dmx_message = init_rgb;
 }
 
@@ -41,6 +41,7 @@ char* rgb_dmx::get_current_txt() {
 
 void rgb_dmx::install_dmx() {
   dmx_driver_install(dmxPort, &config, DMX_INTR_FLAGS_DEFAULT);
+  dmx_set_pin(dmxPort, TRANSMIT_PIN, RECEIVE_PIN, ENABLE_PIN);
 }
 
 uint16_t rgb_dmx::get_start() {
