@@ -124,6 +124,16 @@ void loop() {
   // cycle through the main menu
   if (button_long_pressed) {
     main_sw.next();
+    if (main_sw.get_current() == DMX_PAGE) {
+      switch (dmx_val.get_current()) {
+        case SENDER:
+          sender_init();
+          break;
+        case RECEIVER:
+          receiver_init();
+          break;
+      }
+    }
     set_long_press(false);
   }
 
