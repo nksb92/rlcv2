@@ -1,3 +1,7 @@
+# ----------------------------------------------
+# !!! CONTENT STILL UNDER ACTIVE DEVELOPMENT !!!
+# ----------------------------------------------
+
 # **RLCV2**
 
 **RGB LED Controller Version 2**
