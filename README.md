@@ -1,13 +1,18 @@
-# ----------------------------------------------
-# !!! CONTENT STILL UNDER ACTIVE DEVELOPMENT !!!
-# ----------------------------------------------
+
+# Hardware and Software Versions
+The software of this repository is outdated and will not be developed anymore.
+The Software of the next version, V3, will work in combination with the hardware of this version, V2.
+
+## New Software Repo
+https://github.com/nksb92/rlcv3 
 
 # **RLCV2**
-
 **RGB LED Controller Version 2**
 
 ---
 # Table of Contents
+- [Hardware and Software Versions](#hardware-and-software-versions)
+  - [New Software Repo](#new-software-repo)
 - [**RLCV2**](#rlcv2)
 - [Table of Contents](#table-of-contents)
 - [Systemoverview](#systemoverview)
@@ -21,7 +26,7 @@
     - [Conclusion Hardware](#conclusion-hardware)
     - [Circuit Diagramm](#circuit-diagramm)
     - [Selected Parts / BOM](#selected-parts--bom)
-  - [Software](#software)
+  - [Software (Oudated, see beginning of file)](#software-oudated-see-beginning-of-file)
     - [Concept](#concept-1)
     - [Uploading the Software (Flash the ESP32-C3)](#uploading-the-software-flash-the-esp32-c3)
     - [Bugs and improvements](#bugs-and-improvements)
@@ -153,7 +158,7 @@ Below is the part list for building a RGB LED Tube with the controller inside. T
 |U2                            |TEXAS_SOT23-6                        |TPS560430         |Switching Regulator|Mouser      |595-LMR54406FDBVR                                                           |0,75 €          |1       |0,75 € |
 |U1                            |XIAO-ESP32C3-MODULE14P-2.54-21X17.8MM|XIAO-ESP32C3      |Microcontroller    |Seeed Studio|https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html                  |5,00 €          |1       |5,00 € |
 
-## Software
+## Software (Oudated, see beginning of file)
 
 ### Concept 
 <figure class="image">
